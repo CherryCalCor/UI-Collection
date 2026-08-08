@@ -517,7 +517,6 @@ local ScriptsListLayout = create("UIListLayout", {
 
 local favoritedScripts = {}
 
-(Toast Notifications)
 local function createNotification(scriptName: string)
     local toast = create("Frame", {
         Name = "Toast",
