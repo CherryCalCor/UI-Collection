@@ -149,7 +149,7 @@ local SubtitleText = Instance.new("TextLabel")
 SubtitleText.Size = UDim2.new(1, 0, 0, 12)
 SubtitleText.Position = UDim2.new(0, 0, 0, 30)
 SubtitleText.BackgroundTransparency = 1
-SubtitleText.Text = "CYBERWARE CONTROL SYSTEM"
+SubtitleText.Text = "Example"
 SubtitleText.TextColor3 = COLORS.TextMuted
 SubtitleText.Font = FONTS.Technical
 SubtitleText.TextSize = 8
@@ -252,10 +252,10 @@ SidebarLayout.Padding = UDim.new(0, 6)
 SidebarLayout.SortOrder = Enum.SortOrder.LayoutOrder
 SidebarLayout.Parent = SidebarButtonsContainer
 
-local categories = {"HOME", "MAIN", "VISUALS", "PLAYER", "WORLD", "MISC", "SETTINGS"}
+local categories = {"Example1", "Example", "Example", "Example", "Example", "Example", "Example"}
 
 for i, catName in ipairs(categories) do
-    local isHome = (catName == "HOME")
+    local isHome = (catName == "Example1")
     
     local btn = Instance.new("Frame")
     btn.Name = catName .. "_Tab"
@@ -352,7 +352,7 @@ local TechSpecs = Instance.new("TextLabel")
 TechSpecs.Size = UDim2.new(1, 0, 0, 24)
 TechSpecs.Position = UDim2.new(0, 0, 0, 28)
 TechSpecs.BackgroundTransparency = 1
-TechSpecs.Text = "// NIGHT CITY //\nv2.0.0  //  ONLINE"
+TechSpecs.Text = "Example"
 TechSpecs.TextColor3 = COLORS.AccentRed
 TechSpecs.Font = FONTS.Technical
 TechSpecs.TextSize = 8
@@ -368,7 +368,7 @@ ContentFrame.BackgroundTransparency = 1
 ContentFrame.Parent = MainWindow
 
 local HomePage = Instance.new("Frame")
-HomePage.Name = "HomePage"
+HomePage.Name = "Example1Page"
 HomePage.Size = UDim2.new(1, 0, 1, 0)
 HomePage.BackgroundTransparency = 1
 HomePage.Parent = ContentFrame
@@ -378,18 +378,18 @@ ContentPadding.PaddingLeft = UDim.new(0, 20)
 ContentPadding.PaddingRight = UDim.new(0, 20)
 ContentPadding.PaddingTop = UDim.new(0, 20)
 ContentPadding.PaddingBottom = UDim.new(0, 20)
-ContentPadding.Parent = HomePage
+ContentPadding.Parent = Example1Page
 
 local ContentHeader = Instance.new("Frame")
 ContentHeader.Name = "Header"
 ContentHeader.Size = UDim2.new(1, 0, 0, 45)
 ContentHeader.BackgroundTransparency = 1
-ContentHeader.Parent = HomePage
+ContentHeader.Parent = Example1Page
 
 local MainGreeting = Instance.new("TextLabel")
 MainGreeting.Size = UDim2.new(0.6, 0, 0, 24)
 MainGreeting.BackgroundTransparency = 1
-MainGreeting.Text = "WELCOME, CHOOM"
+MainGreeting.Text = "WELCOME, ..."
 MainGreeting.TextColor3 = COLORS.TextPrimary
 MainGreeting.Font = FONTS.Bold
 MainGreeting.TextSize = 18
@@ -400,7 +400,7 @@ local SubGreeting = Instance.new("TextLabel")
 SubGreeting.Size = UDim2.new(0.6, 0, 0, 14)
 SubGreeting.Position = UDim2.new(0, 0, 0, 24)
 SubGreeting.BackgroundTransparency = 1
-SubGreeting.Text = "CONTROL YOUR NIGHT CITY EXPERIENCE."
+SubGreeting.Text = "Test."
 SubGreeting.TextColor3 = COLORS.TextSecondary
 SubGreeting.Font = FONTS.Main
 SubGreeting.TextSize = 9
@@ -416,7 +416,7 @@ ConnectionStatus.Parent = ContentHeader
 local ConnectionText = Instance.new("TextLabel")
 ConnectionText.Size = UDim2.new(1, -16, 1, 0)
 ConnectionText.BackgroundTransparency = 1
-ConnectionText.Text = "STATUS: CONNECTED"
+ConnectionText.Text = "Example"
 ConnectionText.TextColor3 = COLORS.TextSecondary
 ConnectionText.Font = FONTS.Bold
 ConnectionText.TextSize = 10
@@ -577,20 +577,20 @@ local function CreateActionButton(text: string, prefix: string, callback: () -> 
     end)
 end
 
-CreateActionButton("INFINITE YIELD", ">_", function()
-    print("[NC HUB] Infinite Yield triggered.")
+CreateActionButton("Test", ">_", function()
+    print("[NC HUB] Test triggered.")
 end)
 
-CreateActionButton("FLY", "↑", function()
-    print("[NC HUB] Fly action toggled.")
+CreateActionButton("Test", "↑", function()
+    print("[NC HUB] Test toggled.")
 end)
 
-CreateActionButton("NOCLIP", "⬡", function()
-    print("[NC HUB] Noclip action toggled.")
+CreateActionButton("Test", "⬡", function()
+    print("[NC HUB] Test action toggled.")
 end)
 
-CreateActionButton("ESP", "⊙", function()
-    print("[NC HUB] ESP activated.")
+CreateActionButton("Test", "⊙", function()
+    print("[NC HUB] Test activated.")
 end)
 
 local MainLayout = Instance.new("UIListLayout")
@@ -749,15 +749,15 @@ local function CreateSlider(name: string, min: number, max: number, default: num
     end)
 end
 
-CreateToggle("GOD MODE", false, function(val)
-    print("[NC HUB] God Mode set to:", val)
+CreateToggle("Test", false, function(val)
+    print("[NC HUB] Test set to:", val)
 end)
 
-CreateToggle("INFINITE JUMP", false, function(val)
-    print("[NC HUB] Infinite Jump set to:", val)
+CreateToggle("Test", false, function(val)
+    print("[NC HUB] Test set to:", val)
 end)
 
-CreateSlider("WALK SPEED", 16, 250, 100, function(val)
+CreateSlider("Test", 16, 250, 100, function(val)
 
     local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
     local hum = character:WaitForChild("Humanoid") :: Humanoid
@@ -766,7 +766,7 @@ CreateSlider("WALK SPEED", 16, 250, 100, function(val)
     end
 end)
 
-CreateSlider("JUMP POWER", 50, 300, 100, function(val)
+CreateSlider("Test", 50, 300, 100, function(val)
     local character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
     local hum = character:WaitForChild("Humanoid") :: Humanoid
     if hum then
@@ -896,7 +896,7 @@ BottomStatus.Parent = HomePage
 local StatusText = Instance.new("TextLabel")
 StatusText.Size = UDim2.new(0.5, 0, 1, 0)
 StatusText.BackgroundTransparency = 1
-StatusText.Text = "STAY LEGENDARY, CHOOM. NIGHT CITY IS YOURS."
+StatusText.Text = "Test"
 StatusText.TextColor3 = COLORS.TextMuted
 StatusText.Font = FONTS.Main
 StatusText.TextSize = 9
@@ -912,7 +912,7 @@ CyberwareReadyFrame.Parent = BottomStatus
 local CyberText = Instance.new("TextLabel")
 CyberText.Size = UDim2.new(1, -85, 1, 0)
 CyberText.BackgroundTransparency = 1
-CyberText.Text = "CYBERWARE READY"
+CyberText.Text = "Test"
 CyberText.TextColor3 = COLORS.AccentRed
 CyberText.Font = FONTS.Bold
 CyberText.TextSize = 8
