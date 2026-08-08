@@ -36,35 +36,35 @@ local Config = {
     },
     
     Scripts = {
-        {Name = "Blox Fruits Auto Farm", Category = "Игровые механики"},
-        {Name = "Pet Simulator 99 Auto Hatch", Category = "Утилиты"},
-        {Name = "Doors ESP", Category = "Визуальные"},
-        {Name = "Arsenal Silent Aim", Category = "Аимботы"}
+        {Name = "Example", Category = "Example"},
+        {Name = "Example", Category = "Example"},
+        {Name = "Exaple", Category = "Example"},
+        {Name = "Example", Category = "Example"}
     },
     
     Navigation = {
         {Name = "Главная", Icon = "Home", Active = true},
-        {Name = "Скрипты", Icon = "Scripts", Active = false},
-        {Name = "Избранное", Icon = "Favorites", Active = false},
-        {Name = "Настройки", Icon = "Settings", Active = false},
-        {Name = "Информация", Icon = "Info", Active = false}
+        {Name = "Exaple", Icon = "Scripts", Active = false},
+        {Name = "Example", Icon = "Favorites", Active = false},
+        {Name = "Example", Icon = "Settings", Active = false},
+        {Name = "Example", Icon = "Info", Active = false}
     },
     
     Cards = {
         {
             Icon = "Code",
-            Title = "Большая библиотека",
-            Desc = "Скрипты для популярных игр на Roblox"
+            Title = "Example",
+            Desc = "Example"
         },
         {
             Icon = "Lightning",
-            Title = "Быстро и безопасно",
-            Desc = "Оптимизированная работа и защита от бана"
+            Title = "Example",
+            Desc = "Example"
         },
         {
             Icon = "Favorites",
-            Title = "Избранное",
-            Desc = "Сохраняйте любимые скрипты в один клик"
+            Title = "Example",
+            Desc = "Example"
         }
     }
 }
@@ -485,7 +485,7 @@ local SectionHeader = create("TextLabel", {
     Position = UDim2.new(0, 0, 0, 140),
     BackgroundTransparency = 1,
     Font = Enum.Font.GothamBold,
-    Text = "Популярные скрипты",
+    Text = "Example",
     TextColor3 = Config.Colors.TextDark,
     TextSize = 11,
     TextXAlignment = Enum.TextXAlignment.Left,
