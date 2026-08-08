@@ -965,7 +965,7 @@ StatusInfo.TextXAlignment = Enum.TextXAlignment.Left
 StatusInfo.Text = "• Executor Platform: Universal API\n• License Type: Premium Archival Access\n• Server Security Protocol: Active & Encrypted"
 StatusInfo.Parent = HomeTab
 
-UI:CreateSection(CombatTab, "Aim Systems")
+UI:CreateSection(CombatTab, "Example22")
 
 UI:CreateToggle(CombatTab, "Example", false, function(state)
     print("Aether Lock state:", state)
@@ -979,13 +979,13 @@ UI:CreateDropdown(CombatTab, "Exmaple", {"Head", "Torso", "HumanoidRootPart"}, f
     print("Anchor Target locked to:", selected)
 end)
 
-UI:CreateSection(CombatTab, "Example")
+UI:CreateSection(CombatTab, "Example4")
 
 UI:CreateToggle(CombatTab, "Aether Rapid Trigger", false, function(state)
     print("Rapid Fire:", state)
 end)
 
-UI:CreateSection(VisualsTab, "Example")
+UI:CreateSection(VisualsTab, "Example1")
 
 UI:CreateToggle(VisualsTab, "Example", false, function(state)
     print("ESP Active:", state)
@@ -1003,7 +1003,7 @@ UI:CreateSlider(VisualsTab, "Example", 50, 5000, 1000, function(value)
     print("Render Distance threshold changed:", value)
 end)
 
-UI:CreateSection(TeleportTab, "Example")
+UI:CreateSection(TeleportTab, "Example8")
 
 UI:CreateButton(TeleportTab, "Shift to Humanoid Coordinates", function()
     print("Initiating shift...")
@@ -1013,7 +1013,7 @@ UI:CreateDropdown(TeleportTab, "Example", {"Example", "Example", "Example", "Exa
     print("Warping coordinates directly to:", selected)
 end)
 
-UI:CreateSection(ExecutorTab, "Example")
+UI:CreateSection(ExecutorTab, "Example10")
 
 local EditorFrame = Instance.new("Frame")
 EditorFrame.Size = UDim2.new(1, -10, 0, 180)
@@ -1127,7 +1127,7 @@ HookButtonHover(ClearBtn, ClearStroke)
 
 UI:CreateSection(SettingsTab, "Example")
 
-UI:CreateSlider(SettingsTab, "Example", 50, 150, 100, function(value)
+UI:CreateSlider(SettingsTab, "Example3", 50, 150, 100, function(value)
     MainScale.Scale = value / 100
 end)
 
