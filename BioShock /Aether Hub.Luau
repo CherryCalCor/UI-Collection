@@ -925,11 +925,11 @@ UserInputService.InputChanged:Connect(function(input)
     end
 end)
 
-local HomeTab      = RegisterTab("Example", "⚜")
-local CombatTab    = RegisterTab("Example", "⚔")
-local VisualsTab   = RegisterTab("Example", "👁")
-local TeleportTab  = RegisterTab("Example", "⚓")
-local ExecutorTab  = RegisterTab("Example", "✍")
+local HomeTab      = RegisterTab("Example1", "⚜")
+local CombatTab    = RegisterTab("Example2", "⚔")
+local VisualsTab   = RegisterTab("Example3", "👁")
+local TeleportTab  = RegisterTab("Example4", "⚓")
+local ExecutorTab  = RegisterTab("Example5", "✍")
 local SettingsTab  = RegisterTab("Settigns", "⚙")
 
 UI:CreateSection(HomeTab, "Welcome")
