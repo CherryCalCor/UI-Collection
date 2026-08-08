@@ -113,7 +113,7 @@ local ScreenGui = create("ScreenGui", {
 
 local MainWindow = create("CanvasGroup", {
     Name = "MainWindow",
-    Size = UDim2.new(0, 500, 0, 720),
+    Size = UDim2.new(0, 700, 0, 420),
     Position = UDim2.new(0.5, -260, 0.5, -210),
     BackgroundColor3 = Config.Colors.Background,
     GroupTransparency = 1,
