@@ -227,18 +227,117 @@ CloseStroke.Thickness = 1.5
 CloseStroke.Color = Theme.DarkBrass
 CloseStroke.Parent = CloseButton
 
+local MinimizeButton = Instance.new("TextButton")
+MinimizeButton.Name = "MinimizeButton"
+MinimizeButton.Size = UDim2.new(0, 28, 0, 28)
+MinimizeButton.Position = UDim2.new(1, -74, 0, 14) 
+MinimizeButton.BackgroundColor3 = Theme.DarkBrass
+MinimizeButton.AutoButtonColor = false
+MinimizeButton.Font = Fonts.Title
+MinimizeButton.Text = "-"
+MinimizeButton.TextColor3 = Theme.IvoryPaper
+MinimizeButton.TextSize = 14
+MinimizeButton.Parent = Header
+
+local MinimizeCorner = Instance.new("UICorner")
+MinimizeCorner.CornerRadius = UDim.new(1, 0)
+MinimizeCorner.Parent = MinimizeButton
+
+local MinimizeStroke = Instance.new("UIStroke")
+MinimizeStroke.Thickness = 1.5
+MinimizeStroke.Color = Theme.AntiqueGold
+MinimizeStroke.Parent = MinimizeButton
+
+local RestoreButton = Instance.new("TextButton")
+RestoreButton.Name = "RestoreButton"
+RestoreButton.Size = UDim2.new(0, 50, 0, 50)
+RestoreButton.Position = UDim2.new(0.95, -50, 0.9, -50)
+RestoreButton.BackgroundColor3 = Theme.AlmostBlack
+RestoreButton.Visible = false
+RestoreButton.AutoButtonColor = false
+RestoreButton.Font = Fonts.Title
+RestoreButton.Text = "⚜"
+RestoreButton.TextColor3 = Theme.AntiqueGold
+RestoreButton.TextSize = 24
+RestoreButton.Parent = ScreenGui
+
+local RestoreCorner = Instance.new("UICorner")
+RestoreCorner.CornerRadius = UDim.new(1, 0)
+RestoreCorner.Parent = RestoreButton
+
+local RestoreStroke = Instance.new("UIStroke")
+RestoreStroke.Thickness = 2
+ApplyGoldGradient(RestoreStroke)
+RestoreStroke.Parent = RestoreButton
+
+local RestoreScale = Instance.new("UIScale")
+RestoreScale.Scale = 0
+RestoreScale.Parent = RestoreButton
+
 CloseButton.MouseEnter:Connect(function()
     CreateTween(CloseButton, 0.2, {BackgroundColor3 = Color3.fromRGB(168, 38, 38), Rotation = 5})
 end)
 CloseButton.MouseLeave:Connect(function()
     CreateTween(CloseButton, 0.2, {BackgroundColor3 = Theme.CrimsonWax, Rotation = 0})
 end)
-CloseButton.MouseButton1Down:Connect(function()
-    CreateTween(CloseButton, 0.1, {Size = UDim2.new(0, 25, 0, 25), Position = UDim2.new(1, -36, 0, 16)})
+
+MinimizeButton.MouseEnter:Connect(function()
+    CreateTween(MinimizeButton, 0.2, {BackgroundColor3 = Theme.AntiqueGold, Rotation = -5})
 end)
-CloseButton.MouseButton1Up:Connect(function()
-    CreateTween(CloseButton, 0.1, {Size = UDim2.new(0, 28, 0, 28), Position = UDim2.new(1, -38, 0, 14)})
+MinimizeButton.MouseLeave:Connect(function()
+    CreateTween(MinimizeButton, 0.2, {BackgroundColor3 = Theme.DarkBrass, Rotation = 0})
 end)
+
+RestoreButton.MouseEnter:Connect(function()
+    CreateTween(RestoreButton, 0.2, {BackgroundColor3 = Theme.InkDark})
+end)
+RestoreButton.MouseLeave:Connect(function()
+    CreateTween(RestoreButton, 0.2, {BackgroundColor3 = Theme.AlmostBlack})
+end)
+
+local function CloseUI()
+    CreateTween(MainShadow, 0.25, {ImageTransparency = 1})
+    CreateTween(MainFrame, 0.25, {BackgroundTransparency = 1})
+    local t = CreateTween(Parchment, 0.25, {BackgroundTransparency = 1})
+    t.Completed:Connect(function()
+        ScreenGui:Destroy()
+    end)
+end
+
+local isMinimized = false
+
+local function MinimizeUI()
+    if isMinimized then return end
+    isMinimized = true
+    
+    CreateTween(MainShadow, 0.3, {ImageTransparency = 1})
+    CreateTween(MainFrame, 0.3, {BackgroundTransparency = 1})
+    local t = CreateTween(Parchment, 0.3, {BackgroundTransparency = 1})
+    
+    t.Completed:Connect(function()
+        MainShadow.Visible = false
+        RestoreButton.Visible = true
+        CreateTween(RestoreScale, 0.3, {Scale = 1}, Enum.EasingStyle.Back)
+    end)
+end
+
+local function RestoreUI()
+    if not isMinimized then return end
+    isMinimized = false
+    
+    local t = CreateTween(RestoreScale, 0.3, {Scale = 0}, Enum.EasingStyle.Back)
+    t.Completed:Connect(function()
+        RestoreButton.Visible = false
+        MainShadow.Visible = true
+        CreateTween(MainShadow, 0.3, {ImageTransparency = 0.4})
+        CreateTween(MainFrame, 0.3, {BackgroundTransparency = 0})
+        CreateTween(Parchment, 0.3, {BackgroundTransparency = 0})
+    end)
+end
+
+CloseButton.Activated:Connect(CloseUI)
+MinimizeButton.Activated:Connect(MinimizeUI)
+RestoreButton.Activated:Connect(RestoreUI)
 
 local HeaderDivider = Instance.new("Frame")
 HeaderDivider.Name = "HeaderDivider"
@@ -1020,8 +1119,8 @@ EditorFrame.Size = UDim2.new(1, -10, 0, 180)
 EditorFrame.BackgroundColor3 = Theme.IvoryPaper
 EditorFrame.Parent = ExecutorTab
 
-local EditorCorner = Instance.new("UICorner")
-EditorCorner.CornerRadius = UDim.new(0, 4)
+local EditorCorner = Instance
+ditorCorner.CornerRadius = UDim.new(0, 4)
 EditorCorner.Parent = EditorFrame
 
 local EditorStroke = Instance.new("UIStroke")
@@ -1162,16 +1261,7 @@ local function RunIntroAnimation()
     CreateTween(Subtitle, 1.4, {TextTransparency = 0})
     CreateTween(VersionBadge, 1.4, {TextTransparency = 0})
     
-    SwitchTab("Home")
+    SwitchTab("Example1")
 end
-
-CloseButton.MouseButton1Click:Connect(function()
-    CreateTween(MainShadow, 0.25, {ImageTransparency = 1})
-    CreateTween(MainFrame, 0.25, {BackgroundTransparency = 1})
-    local t = CreateTween(Parchment, 0.25, {BackgroundTransparency = 1})
-    t.Completed:Connect(function()
-        ScreenGui:Destroy()
-    end)
-end)
 
 RunIntroAnimation()
