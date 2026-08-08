@@ -925,12 +925,12 @@ UserInputService.InputChanged:Connect(function(input)
     end
 end)
 
-local HomeTab      = RegisterTab("Home", "⚜")
-local CombatTab    = RegisterTab("Combat", "⚔")
-local VisualsTab   = RegisterTab("Visuals", "👁")
-local TeleportTab  = RegisterTab("Teleport", "⚓")
-local ExecutorTab  = RegisterTab("Executor", "✍")
-local SettingsTab  = RegisterTab("Settings", "⚙")
+local HomeTab      = RegisterTab("Example", "⚜")
+local CombatTab    = RegisterTab("Example", "⚔")
+local VisualsTab   = RegisterTab("Example", "👁")
+local TeleportTab  = RegisterTab("Example", "⚓")
+local ExecutorTab  = RegisterTab("Example", "✍")
+local SettingsTab  = RegisterTab("Settigns", "⚙")
 
 UI:CreateSection(HomeTab, "Welcome")
 
@@ -967,53 +967,53 @@ StatusInfo.Parent = HomeTab
 
 UI:CreateSection(CombatTab, "Aim Systems")
 
-UI:CreateToggle(CombatTab, "Enable Aether Aimlock", false, function(state)
+UI:CreateToggle(CombatTab, "Example", false, function(state)
     print("Aether Lock state:", state)
 end)
 
-UI:CreateSlider(CombatTab, "Aimlock Precision Radius (FOV)", 10, 360, 90, function(value)
+UI:CreateSlider(CombatTab, "Example", 10, 360, 90, function(value)
     print("Aimlock FOV modified to:", value)
 end)
 
-UI:CreateDropdown(CombatTab, "Aim Targeting Anchor", {"Head", "Torso", "HumanoidRootPart"}, function(selected)
+UI:CreateDropdown(CombatTab, "Exmaple", {"Head", "Torso", "HumanoidRootPart"}, function(selected)
     print("Anchor Target locked to:", selected)
 end)
 
-UI:CreateSection(CombatTab, "Weapons Modulation")
+UI:CreateSection(CombatTab, "Example")
 
 UI:CreateToggle(CombatTab, "Aether Rapid Trigger", false, function(state)
     print("Rapid Fire:", state)
 end)
 
-UI:CreateSection(VisualsTab, "Aetherial Sight (ESP)")
+UI:CreateSection(VisualsTab, "Example")
 
-UI:CreateToggle(VisualsTab, "Enable ESP Manifestation", false, function(state)
+UI:CreateToggle(VisualsTab, "Example", false, function(state)
     print("ESP Active:", state)
 end)
 
-UI:CreateToggle(VisualsTab, "Draw Skeleton Framework", false, function(state)
+UI:CreateToggle(VisualsTab, "Example", false, function(state)
     print("Skeleton Drawing:", state)
 end)
 
-UI:CreateToggle(VisualsTab, "Reveal Name Engravings", false, function(state)
+UI:CreateToggle(VisualsTab, "Example", false, function(state)
     print("Names Revealed:", state)
 end)
 
-UI:CreateSlider(VisualsTab, "Visual Render Threshold (Distance)", 50, 5000, 1000, function(value)
+UI:CreateSlider(VisualsTab, "Example", 50, 5000, 1000, function(value)
     print("Render Distance threshold changed:", value)
 end)
 
-UI:CreateSection(TeleportTab, "Coordinates Shift")
+UI:CreateSection(TeleportTab, "Example")
 
 UI:CreateButton(TeleportTab, "Shift to Humanoid Coordinates", function()
     print("Initiating shift...")
 end)
 
-UI:CreateDropdown(TeleportTab, "Target Points", {"Lobby", "Spawn Arena", "Secrets Vault", "Top Deck"}, function(selected)
+UI:CreateDropdown(TeleportTab, "Example", {"Example", "Example", "Example", "Example"}, function(selected)
     print("Warping coordinates directly to:", selected)
 end)
 
-UI:CreateSection(ExecutorTab, "The Scribbler (Executor)")
+UI:CreateSection(ExecutorTab, "Example")
 
 local EditorFrame = Instance.new("Frame")
 EditorFrame.Size = UDim2.new(1, -10, 0, 180)
@@ -1078,14 +1078,14 @@ ExecBtn.MouseButton1Click:Connect(function()
             if func then
                 task.spawn(func)
             else
-                warn("[AETHER COMPILER ERROR]: " .. tostring(compileError))
+                warn("Example]: " .. tostring(compileError))
             end
         else
-            warn("[AETHER ENVIRONMENT ERROR]: Universal Executor compiler (loadstring) is currently missing.")
+            warn("Example.")
         end
     end)
     if not success then
-        warn("[AETHER SYSTEM FAILURE]: " .. tostring(err))
+        warn("Example]: " .. tostring(err))
     end
 end)
 
@@ -1125,13 +1125,13 @@ end
 HookButtonHover(ExecBtn, ExecStroke)
 HookButtonHover(ClearBtn, ClearStroke)
 
-UI:CreateSection(SettingsTab, "Hub Preferences")
+UI:CreateSection(SettingsTab, "Example")
 
-UI:CreateSlider(SettingsTab, "Aether Canvas Scale", 50, 150, 100, function(value)
+UI:CreateSlider(SettingsTab, "Example", 50, 150, 100, function(value)
     MainScale.Scale = value / 100
 end)
 
-UI:CreateSection(SettingsTab, "Unload Protocols")
+UI:CreateSection(SettingsTab, "Example")
 
 UI:CreateButton(SettingsTab, "Destroy Interface Safely", function()
     CreateTween(MainShadow, 0.25, {ImageTransparency = 1})
