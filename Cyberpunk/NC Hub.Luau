@@ -775,12 +775,12 @@ CreateSlider("Test", 50, 300, 100, function(val)
     end
 end)
 
-CreateToggle("NOCLIP", false, function(val)
-    print("[NC HUB] Noclip set to:", val)
+CreateToggle("Test", false, function(val)
+    print("[NC HUB] Test to:", val)
 end)
 
-CreateToggle("ANTI AFK", true, function(val)
-    print("[NC HUB] Anti AFK active:", val)
+CreateToggle("Test", true, function(val)
+    print("[NC HUB] Test active:", val)
 end)
 
 local InfoLayout = Instance.new("UIListLayout")
