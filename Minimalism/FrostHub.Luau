@@ -444,7 +444,7 @@ buildWinButton("✕", nil, function()
 end)
 
 local dragInput, dragStart, startPos
-local dragBar = Sidebar -- Sidebar and TopBar can trigger drag operations
+local dragBar = Sidebar 
 
 local function update(input)
 	local delta = input.Position - dragStart
