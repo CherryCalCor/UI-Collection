@@ -7,17 +7,17 @@ local LocalPlayer = Players.LocalPlayer
 
 local CONFIG = {
 
-	BG_GRADIENT_START = Color3.fromRGB(215, 230, 245), -- Ice blue
-	BG_GRADIENT_END = Color3.fromRGB(245, 248, 253),   -- Soft white
+	BG_GRADIENT_START = Color3.fromRGB(215, 230, 245), 
+	BG_GRADIENT_END = Color3.fromRGB(245, 248, 253),   
 	PANEL_COLOR = Color3.fromRGB(255, 255, 255),
 	PANEL_TRANSPARENCY = 0.22, -- Frosted glass opacity
 	SIDEBAR_COLOR = Color3.fromRGB(240, 246, 255),
 	SIDEBAR_TRANSPARENCY = 0.28,
 	
-	TEXT_MAIN = Color3.fromRGB(38, 48, 68),       -- Deep Navy
-	TEXT_MUTED = Color3.fromRGB(115, 128, 148),   -- Muted blue-gray
-	ACCENT_COLOR = Color3.fromRGB(80, 145, 220),  -- Frost blue accent
-	ACCENT_GREEN = Color3.fromRGB(85, 185, 145),  -- Frost green (status indicators)
+	TEXT_MAIN = Color3.fromRGB(38, 48, 68),      
+	TEXT_MUTED = Color3.fromRGB(115, 128, 148),   
+	ACCENT_COLOR = Color3.fromRGB(80, 145, 220),  
+	ACCENT_GREEN = Color3.fromRGB(85, 185, 145),  
 	BORDER_COLOR = Color3.fromRGB(255, 255, 255),
 	BORDER_TRANSPARENCY = 0.65,
 	
