@@ -64,19 +64,11 @@ local ScreenGui = create("ScreenGui", {
 })
 
 local Background = create("Frame", {
-	Name = "Background",
-	Size = UDim2.new(1, 0, 1, 0),
-	BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-	BorderSizePixel = 0,
-	Parent = ScreenGui
-}, {
-	create("UIGradient", {
-		Color = ColorSequence.new({
-			ColorSequenceKeypoint.new(0, CONFIG.BG_GRADIENT_START),
-			ColorSequenceKeypoint.new(1, CONFIG.BG_GRADIENT_END)
-		}),
-		Rotation = 45
-	})
+ Name = "Background",
+ Size = UDim2.new(1, 0, 1, 0),
+ BackgroundTransparency = 1,
+ BorderSizePixel = 0,
+ Parent = ScreenGui
 })
 
 local SnowContainer = create("Frame", {
