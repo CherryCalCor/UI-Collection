@@ -6,7 +6,6 @@ local UserInputService = game:GetService("UserInputService")
 local LocalPlayer = Players.LocalPlayer
 
 local CONFIG = {
-
 	BG_GRADIENT_START = Color3.fromRGB(215, 230, 245), 
 	BG_GRADIENT_END = Color3.fromRGB(245, 248, 253),   
 	PANEL_COLOR = Color3.fromRGB(255, 255, 255),
@@ -83,8 +82,9 @@ task.spawn(function()
 	local activeSnowflakes = {}
 	local maxSnowflakes = 45
 	
-	while true do
+	while ScreenGui.Parent do
 		task.wait(0.12)
+		if not ScreenGui.Parent then break end
 		if #activeSnowflakes < maxSnowflakes then
 			local size = math.random(3, 7)
 			local snowflake = create("Frame", {
@@ -121,10 +121,11 @@ end)
 local MainWindow = create("Frame", {
 	Name = "MainWindow",
 	Size = CONFIG.WINDOW_SIZE,
-	Position = UDim2.new(0.5, 0, 0.5, 0),
-	AnchorPoint = Vector2.new(0.5, 0.5),
+	Position = UDim2.new(0.5, 0, 0.5, -CONFIG.WINDOW_SIZE.Y.Offset / 2),
+	AnchorPoint = Vector2.new(0.5, 0), 
 	BackgroundColor3 = CONFIG.PANEL_COLOR,
 	BackgroundTransparency = CONFIG.PANEL_TRANSPARENCY,
+	ClipsDescendants = true,
 	Parent = Background
 }, {
 	create("UICorner", { CornerRadius = UDim.new(0, 24) }),
@@ -134,8 +135,6 @@ local MainWindow = create("Frame", {
 		Thickness = 1.5
 	})
 })
-
-local glassPanels = { MainWindow }
 
 local Sidebar = create("Frame", {
 	Name = "Sidebar",
@@ -147,9 +146,8 @@ local Sidebar = create("Frame", {
 }, {
 	create("UICorner", { CornerRadius = UDim.new(0, 24) })
 })
-table.insert(glassPanels, Sidebar)
 
-local LogoContainer = create("Frame", {
+local LogoContainer = create("CanvasGroup", {
 	Name = "LogoContainer",
 	Size = UDim2.new(1, -40, 0, 50),
 	Position = UDim2.new(0, 20, 0, 25),
@@ -188,7 +186,7 @@ local LogoContainer = create("Frame", {
 	})
 })
 
-local NavigationContainer = create("Frame", {
+local NavigationContainer = create("CanvasGroup", {
 	Name = "Navigation",
 	Size = UDim2.new(1, -30, 0, 200),
 	Position = UDim2.new(0, 15, 0, 100),
@@ -229,7 +227,6 @@ local HomeButton = create("Frame", {
 		Size = UDim2.new(1, -50, 1, 0),
 		BackgroundTransparency = 1
 	}),
-
 	create("Frame", {
 		Name = "AccentBar",
 		Size = UDim2.new(0, 4, 0.45, 0),
@@ -255,7 +252,7 @@ navBtnTrigger.MouseLeave:Connect(function()
 	TweenService:Create(HomeButton, TweenInfo.new(0.2, Enum.EasingStyle.Quad), {BackgroundTransparency = 0.55}):Play()
 end)
 
-local ProfileCard = create("Frame", {
+local ProfileCard = create("CanvasGroup", {
 	Name = "UserProfile",
 	Size = UDim2.new(1, -30, 0, 64),
 	Position = UDim2.new(0, 15, 1, -84),
@@ -380,7 +377,6 @@ local function buildWinButton(text, iconAsset, callback)
 	})
 	
 	if not iconAsset then
-
 		local lbl = create("TextLabel", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
@@ -401,39 +397,75 @@ local function buildWinButton(text, iconAsset, callback)
 	btn.MouseButton1Click:Connect(callback)
 end
 
+local noclipConnection
+local function cleanup()
+	if noclipConnection then
+		noclipConnection:Disconnect()
+		noclipConnection = nil
+	end
+	
+	local char = LocalPlayer.Character
+	if char then
+		local hum = char:FindFirstChildOfClass("Humanoid")
+		if hum then
+			hum.WalkSpeed = 16
+			hum.MaxHealth = 100
+			hum.Health = math.min(hum.Health, 100)
+		end
+		for _, part in ipairs(char:GetDescendants()) do
+			if part:IsA("BasePart") then
+				part.CanCollide = true
+				if part.Name ~= "HumanoidRootPart" then
+					part.Transparency = 0
+				end
+			elseif part:IsA("Decal") then
+				part.Transparency = 0
+			end
+		end
+	end
+	
+	ScreenGui:Destroy()
+end
+
 local isMinimized = false
 buildWinButton("-", nil, function()
 	isMinimized = not isMinimized
 	local targetHeight = isMinimized and 65 or 580
-	local targetOpacity = isMinimized and 1 or 0
 	
 	TweenService:Create(MainWindow, TweenInfo.new(0.4, Enum.EasingStyle.Quad), {Size = UDim2.new(0, 950, 0, targetHeight)}):Play()
 	TweenService:Create(Sidebar, TweenInfo.new(0.3), {BackgroundTransparency = isMinimized and 1 or CONFIG.SIDEBAR_TRANSPARENCY}):Play()
 	
 	for _, child in ipairs(Sidebar:GetChildren()) do
-		if child:IsA("Frame") or child:IsA("TextLabel") then
-			TweenService:Create(child, TweenInfo.new(0.2), {GroupTransparency = isMinimized and 1 or 0}):Play()
+		if child:IsA("CanvasGroup") then
+			child.Visible = true
+			TweenService:Create(child, TweenInfo.new(0.25), {GroupTransparency = isMinimized and 1 or 0}):Play()
 		end
 	end
 	
 	local homePage = Content:FindFirstChild("HomePage")
 	if homePage then
+		homePage.Visible = true
 		TweenService:Create(homePage, TweenInfo.new(0.3), {GroupTransparency = isMinimized and 1 or 0}):Play()
 	end
+	
+	task.spawn(function()
+		if isMinimized then
+			task.wait(0.3)
+			if isMinimized then
+				for _, child in ipairs(Sidebar:GetChildren()) do
+					if child:IsA("CanvasGroup") then
+						child.Visible = false
+					end
+				end
+				if homePage then homePage.Visible = false end
+			end
+		end
+	end)
 end)
 
 buildWinButton("⬜", nil, function() end)
 
-buildWinButton("✕", nil, function()
-	local closeTween = TweenService:Create(MainWindow, TweenInfo.new(0.35, Enum.EasingStyle.Quad), {
-		Size = UDim2.fromOffset(900, 530),
-		GroupTransparency = 1
-	})
-	closeTween:Play()
-	closeTween.Completed:Connect(function()
-		ScreenGui:Destroy()
-	end)
-end)
+buildWinButton("✕", nil, cleanup)
 
 local dragInput, dragStart, startPos
 local dragBar = Sidebar 
@@ -445,33 +477,26 @@ end
 
 local function onInputStart(input)
 	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-		local guiObj = dragBar
-		local startDrag = true
+		dragStart = input.Position
+		startPos = MainWindow.Position
 		
-		local localPos = input.Position
+		local changedConn
+		changedConn = input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				changedConn:Disconnect()
+			end
+		end)
 		
-		if startDrag then
-			dragStart = input.Position
-			startPos = MainWindow.Position
-			
-			local changedConn
-			changedConn = input.Changed:Connect(function()
+		local moveConn
+		moveConn = UserInputService.InputChanged:Connect(function(moveInput)
+			if moveInput.UserInputType == Enum.UserInputType.MouseMovement or moveInput.UserInputType == Enum.UserInputType.Touch then
 				if input.UserInputState == Enum.UserInputState.End then
-					changedConn:Disconnect()
+					moveConn:Disconnect()
+				else
+					update(moveInput)
 				end
-			end)
-			
-			local moveConn
-			moveConn = UserInputService.InputChanged:Connect(function(moveInput)
-				if moveInput.UserInputType == Enum.UserInputType.MouseMovement or moveInput.UserInputType == Enum.UserInputType.Touch then
-					if input.UserInputState == Enum.UserInputState.End then
-						moveConn:Disconnect()
-					else
-						update(moveInput)
-					end
-				end
-			end)
-		end
+			end
+		end)
 	end
 end
 
@@ -577,7 +602,6 @@ local StatusCard = create("Frame", {
 		Size = UDim2.new(1, -70, 0, 20),
 		BackgroundTransparency = 1
 	}),
-
 	create("Frame", {
 		Name = "PulsingDot",
 		Size = UDim2.fromOffset(8, 8),
@@ -751,7 +775,6 @@ buildActionCard("WalkSpeed", CONFIG.ICON_RUN, function(enabled)
 	end
 end)
 
-local noclipConnection
 buildActionCard("Noclip", CONFIG.ICON_SHIELD, function(enabled)
 	if enabled then
 		noclipConnection = RunService.Stepped:Connect(function()
@@ -766,6 +789,12 @@ buildActionCard("Noclip", CONFIG.ICON_SHIELD, function(enabled)
 		if noclipConnection then
 			noclipConnection:Disconnect()
 			noclipConnection = nil
+		end
+		local char = LocalPlayer.Character
+		if char then
+			for _, part in ipairs(char:GetDescendants()) do
+				if part:IsA("BasePart") then part.CanCollide = true end
+			end
 		end
 	end
 end)
@@ -888,12 +917,12 @@ local barSpeed = buildStatBar("WalkSpeed", CONFIG.ICON_RUN, 2)
 local barJump = buildStatBar("JumpPower", CONFIG.ICON_JUMP, 3)
 
 task.spawn(function()
-	while true do
+	while ScreenGui.Parent do
 		task.wait(0.25)
+		if not ScreenGui.Parent then break end
 		local char = LocalPlayer.Character
 		local hum = char and char:FindFirstChildOfClass("Humanoid")
 		if hum then
-
 			local healthPercent = math.clamp(hum.Health / hum.MaxHealth, 0, 1)
 			barHealth.Value.Text = tostring(math.floor(hum.Health)) .. "/" .. tostring(math.floor(hum.MaxHealth))
 			TweenService:Create(barHealth.Track.Fill, TweenInfo.new(0.2), {Size = UDim2.new(healthPercent, 0, 1, 0)}):Play()
@@ -965,7 +994,6 @@ local ScriptStatus = create("Frame", {
 		Size = UDim2.new(0.55, 0, 0, 50),
 		BackgroundTransparency = 1
 	}),
-
 	create("ImageLabel", {
 		Name = "MountainArt",
 		Size = UDim2.fromOffset(130, 100),
