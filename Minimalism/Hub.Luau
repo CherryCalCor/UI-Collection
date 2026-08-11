@@ -246,7 +246,6 @@ UIGridLayout.Parent = StatsContainer
 local function CreateStatBox(name, titleText, layoutOrder)
     local Box = Instance.new("TextButton")
     Box.Name = name
-    -- Исправлен стартовый цвет фона на белый
     Box.BackgroundColor3 = Color3.fromRGB(255, 255, 255) 
     Box.LayoutOrder = layoutOrder
     Box.Text = ""
@@ -258,7 +257,7 @@ local function CreateStatBox(name, titleText, layoutOrder)
     Corner.Parent = Box
     
     local Stroke = Instance.new("UIStroke")
-    Stroke.Color = Color3.fromRGB(230, 230, 230) -- Стартовый цвет обводки
+    Stroke.Color = Color3.fromRGB(230, 230, 230)
     Stroke.Transparency = 0.4
     Stroke.Parent = Box
     
@@ -271,7 +270,7 @@ local function CreateStatBox(name, titleText, layoutOrder)
     Title.Position = UDim2.new(0, 12, 0, 12)
     Title.BackgroundTransparency = 1
     Title.Text = titleText
-    -- Исправлен стартовый цвет заголовка
+
     Title.TextColor3 = Color3.fromRGB(150, 150, 150)
     Title.Font = Enum.Font.GothamMedium
     Title.TextSize = 12
@@ -284,7 +283,7 @@ local function CreateStatBox(name, titleText, layoutOrder)
     Value.Position = UDim2.new(0, 12, 0, 32)
     Value.BackgroundTransparency = 1
     Value.Text = "..."
-    -- Исправлен стартовый цвет значения
+
     Value.TextColor3 = Color3.fromRGB(35, 35, 35)
     Value.Font = Enum.Font.GothamBold
     Value.TextSize = 18
@@ -292,16 +291,14 @@ local function CreateStatBox(name, titleText, layoutOrder)
     Value.TextTruncate = Enum.TextTruncate.AtEnd
     Value.Parent = Box
     
-    -- Убрали переменные defaultSize и hoverSize, так как они не работают с UIGridLayout
     Box.Size = UDim2.new(0, 195, 0, 75)
 
     Box.MouseEnter:Connect(function()
-        -- Анимация цвета фона
+
         TweenService:Create(Box, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
             BackgroundColor3 = Color3.fromRGB(0, 0, 0)
         }):Play()
 
-        -- Анимация УВЕЛИЧЕНИЯ через UIScale (обходим UIGridLayout)
         TweenService:Create(Scale, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
             Scale = 1.03 -- 1.03 дает красивое легкое увеличение
         }):Play()
@@ -320,12 +317,11 @@ local function CreateStatBox(name, titleText, layoutOrder)
     end)
 
     Box.MouseLeave:Connect(function()
-        -- Возврат цвета фона
+
         TweenService:Create(Box, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
             BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         }):Play()
 
-        -- Возврат размера через UIScale
         TweenService:Create(Scale, TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
             Scale = 1
         }):Play()
